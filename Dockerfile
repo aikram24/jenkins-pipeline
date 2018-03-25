@@ -13,13 +13,15 @@ EXPOSE $PORT 5858 9229
 HEALTHCHECK CMD curl -fs http://localhost:$PORT/healthz || exit 1
 
 # install dependencies first, in a different location for easier app bind mounting for local development
-WORKDIR /opt
-COPY app/package.json app/package-lock.json* ./
-RUN npm install && npm cache clean --force
-ENV PATH /opt/node_modules/.bin:$PATH
+# WORKDIR /opt
+# COPY app/package.json app/package-lock.json* ./
+# RUN npm install && npm cache clean --force
+# ENV PATH /opt/node_modules/.bin:$PATH
 
 # copy in our source code last, as it changes the most
 WORKDIR /opt/app
-COPY . /opt/app
+COPY app /opt/app
+RUN npm install && npm cache clean --force
+ENV PATH /opt/node_modules/.bin:$PATH
 
 CMD [ "node", "index.js" ]
