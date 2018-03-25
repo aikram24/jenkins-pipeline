@@ -7,11 +7,11 @@ node {
         	checkout scm
         }
         stage ('Build') {
-        	sh "sudo docker build -t sample-nodejs-app:v1.1 ."
+        	sh "sudo docker build -t aikram24/sample-nodejs-app:v1.1 ."
         }
 		stage ('PushImage'){
 			sh "sudo cat /var/lib/jenkins/pass.txt | sudo docker login --username aikram24 --password-stdin"
-			sh "sudo docker push sample-nodejs-app:v1.1 aikram24/sample-nodejs-app:v1.1"
+			sh "sudo docker push aikram24/sample-nodejs-app:v1.1"
 		}
         stage ('Tests') {
 	        parallel 'static': {
@@ -25,7 +25,7 @@ node {
 	        }
         }
       	stage ('Deploy') {
-            sh "sudo docker pull aikram24/sample-nodejs-app"
+            sh "sudo docker pull aikram24/sample-nodejs-app:v1.1"
 			sh "sudo docker run --name=nodejsdeploy -it aikram24/sample-nodejs-app::v1.1"
       	}
     } catch (err) {
