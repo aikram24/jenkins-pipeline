@@ -7,7 +7,7 @@ node {
         	checkout scm
         }
         stage ('Build') {
-        	sh "docker build -t sample-nodejs-app:v1.1 ."
+        	sh "sudo docker build -t sample-nodejs-app:v1.1 ."
         }
 		stage ('Push-Image'){
 			sh "cat /var/lib/jenkins/pass.txt | docker login --username aikram24 --password-stdin"
