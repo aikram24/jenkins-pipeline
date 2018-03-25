@@ -9,8 +9,8 @@ node {
         stage ('Build') {
         	sh "sudo docker build -t sample-nodejs-app:v1.1 ."
         }
-		stage ('Push-Image'){
-			sh "sudo cat /var/lib/jenkins/pass.txt | docker login --username aikram24 --password-stdin"
+		stage ('PushImage'){
+			sh "sudo cat /var/lib/jenkins/pass.txt | sudo docker login --username aikram24 --password-stdin"
 			sh "sudo docker push sample-nodejs-app:v1.1 aikram24/sample-nodejs-app:v1.1"
 		}
         stage ('Tests') {
