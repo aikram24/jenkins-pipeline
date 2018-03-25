@@ -26,6 +26,7 @@ node {
         }
       	stage ('Deploy') {
             sh "sudo docker pull aikram24/sample-nodejs-app:v1.1"
+			sh "sudo docker container rm nodejsdeploy"
 			sh "sudo docker run --name nodejsdeploy -itd aikram24/sample-nodejs-app:v1.1"
 			// sh "sudo docker container rm nodejsdeploy --force"
       	}
